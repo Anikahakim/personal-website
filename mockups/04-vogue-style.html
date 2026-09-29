@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anika Hakim — Mockup 04, Vogue-Style</title>
+<style>
+  :root {
+    --paper: #ffffff;
+    --ink: #111111;
+    --tile: #ececec;
+    --rule: #111111;
+    --hairline: #e2e2e2;
+    --serif: Didot, "Bodoni MT", Cochin, Georgia, serif;
+    --sans: "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  ::selection { background: var(--ink); color: var(--paper); }
+  :focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+
+  .utility {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 10px 24px;
+    border-bottom: 1px solid var(--hairline);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .utility a { text-decoration: none; }
+  .utility a:hover { text-decoration: underline; text-underline-offset: 3px; }
+  .utility .right { display: flex; gap: 20px; }
+
+  .masthead { text-align: center; padding: 20px 24px 16px; }
+  .masthead h1 {
+    margin: 0;
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(52px, 9vw, 120px);
+    line-height: 1;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+  }
+  .masthead h1 a { text-decoration: none; }
+
+  .sections {
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    justify-content: center;
+    gap: 36px;
+    padding: 12px 24px;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .sections a { text-decoration: none; }
+  .sections a:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+  .slimbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 60;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 24px;
+    transform: translateY(-110%);
+    transition: transform 0.3s;
+  }
+  header.condensed .slimbar { transform: none; }
+  .slimbar .brand {
+    font-family: "Snell Roundhand", "Brush Script MT", cursive;
+    font-size: 24px;
+    line-height: 1.2;
+    text-decoration: none;
+  }
+  .slimbar nav { display: flex; gap: 24px; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; }
+  .slimbar nav a { text-decoration: none; }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 32px;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 40px 24px;
+  }
+  .lead-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 4 / 3;
+    background: var(--tile);
+    text-decoration: none;
+    transition: background 0.3s, color 0.3s;
+  }
+  .lead-visual:hover { background: var(--ink); color: var(--paper); }
+  .lead-visual .mono {
+    font-family: var(--serif);
+    font-size: clamp(120px, 20vw, 260px);
+    line-height: 1;
+  }
+  .kicker {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin: 18px 0 8px;
+  }
+  .lead-head {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(44px, 6vw, 84px);
+    line-height: 1;
+    margin: 0;
+  }
+  .lead-head a { text-decoration: none; }
+  .lead-head a:hover { text-decoration: underline; text-underline-offset: 6px; }
+  .dek { font-size: 16px; line-height: 1.5; margin: 12px 0 0; }
+  .byline { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; margin: 12px 0 0; }
+
+  .rail { display: grid; gap: 32px; align-content: start; }
+  .rail-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 16 / 10;
+    background: var(--ink);
+    color: var(--paper);
+    text-decoration: none;
+    transition: background 0.3s, color 0.3s;
+  }
+  .rail-visual:hover { background: var(--tile); color: var(--ink); }
+  .rail-visual .mono { font-family: var(--serif); font-size: clamp(64px, 8vw, 120px); line-height: 1; }
+  .rail-story h3 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 34px;
+    line-height: 1.05;
+    margin: 0;
+  }
+  .rail-story h3 a { text-decoration: none; }
+  .rail-story h3 a:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .rail-story .dek { font-size: 14px; }
+  .rail-story .byline { font-size: 11px; }
+
+  .projects { max-width: 1280px; margin: 0 auto; padding: 24px; }
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 12px;
+  }
+  .section-head h2 {
+    margin: 0;
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 40px;
+  }
+  .section-head span { font-size: 13px; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px 24px;
+    padding: 32px 0 8px;
+  }
+  .card .num { font-size: 11px; letter-spacing: 0.14em; }
+  .thumb {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1 / 1;
+    background: var(--tile);
+    margin-top: 8px;
+    font-family: var(--serif);
+    font-size: clamp(64px, 7vw, 110px);
+    line-height: 1;
+    text-decoration: none;
+  }
+  .card:nth-child(even) .thumb { background: var(--ink); color: var(--paper); }
+  .card h3 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 26px;
+    margin: 12px 0 4px;
+  }
+  .card h3 a { text-decoration: none; }
+  .card h3 a:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .card .dek { font-size: 14px; margin-top: 4px; }
+
+  .quote {
+    max-width: 900px;
+    margin: 72px auto 0;
+    padding: 56px 24px;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    text-align: center;
+  }
+  .quote p {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(26px, 4vw, 44px);
+    line-height: 1.25;
+    margin: 0;
+  }
+
+  .contact { text-align: center; padding: 56px 24px 64px; }
+  .foot-brand {
+    font-family: var(--serif);
+    font-size: clamp(32px, 5vw, 56px);
+    text-transform: uppercase;
+    margin: 0;
+  }
+  .contact .links {
+    margin: 18px 0 0;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  body.nav-locked .slimbar { transform: none; }
+  body.intro-playing { overflow: hidden; }
+  body.intro-playing .slimbar { transition: none; }
+
+  .intro {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .intro[hidden] { display: none; }
+  .intro-bg { position: absolute; inset: 0; background: var(--paper); }
+  .intro-stage { position: relative; }
+  .intro-sig {
+    display: inline-block;
+    font-family: "Snell Roundhand", "Brush Script MT", cursive;
+    font-size: clamp(72px, 14vw, 160px);
+    line-height: 1.2;
+    clip-path: inset(0 100% 0 0);
+    transform-origin: 0 0;
+  }
+  .intro-pen {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 10px;
+    height: 10px;
+    margin: -5px 0 0 -5px;
+    border-radius: 50%;
+    background: var(--ink);
+  }
+
+  .mockup-tag {
+    position: fixed;
+    right: 12px;
+    bottom: 12px;
+    z-index: 99;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    padding: 6px 10px;
+    margin: 0;
+  }
+
+  @media (max-width: 960px) {
+    .hero { grid-template-columns: 1fr; }
+    .grid { grid-template-columns: 1fr 1fr; }
+    .slimbar nav { display: none; }
+  }
+  @media (max-width: 640px) {
+    .utility .right a:nth-child(3) { display: none; }
+    .sections { gap: 24px; }
+    .grid { grid-template-columns: 1fr; }
+    .thumb { aspect-ratio: 16 / 10; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .slimbar, .lead-visual, .rail-visual { transition: none; }
+  }
+</style>
+</head>
+<body>
+<div class="intro" data-intro hidden aria-hidden="true">
+  <div class="intro-bg" data-intro-bg></div>
+  <div class="intro-stage">
+    <span class="intro-sig" data-intro-sig>Anika Hakim</span>
+    <span class="intro-pen" data-intro-pen></span>
+  </div>
+</div>
+<p class="mockup-tag">Mockup 04 — Vogue-Style</p>
+
+<header class="site-head" data-condense>
+  <div class="utility">
+    <a href="mailto:ah7203@nyu.edu">ah7203@nyu.edu</a>
+    <div class="right">
+      <a href="https://github.com/Anikahakim">GitHub</a>
+      <a href="https://www.linkedin.com/in/anika-hakim/">LinkedIn</a>
+      <a href="/public/AnikaHakim_Resume.pdf">Resume</a>
+    </div>
+  </div>
+  <div class="masthead"><h1><a href="#top">Anika Hakim</a></h1></div>
+  <nav class="sections" aria-label="Primary">
+    <a href="#top">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div class="slimbar">
+    <a class="brand" data-nav-brand href="#top">Anika Hakim</a>
+    <nav aria-label="Condensed">
+      <a href="#top">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" aria-label="Featured">
+    <article class="lead">
+      <a class="lead-visual" href="https://github.com/Anikahakim/Racked" aria-label="Racked on GitHub"><span class="mono" aria-hidden="true">R</span></a>
+      <p class="kicker">Projects</p>
+      <h2 class="lead-head"><a href="https://github.com/Anikahakim/Racked">Racked</a></h2>
+      <p class="dek">Mobile-first closet app.</p>
+      <p class="byline">solo — Next.js, Supabase, Claude API, Vercel</p>
+    </article>
+    <div class="rail">
+      <article class="rail-story">
+        <a class="rail-visual" href="https://github.com/itzdxrius/finbro" aria-label="FinBro on GitHub"><span class="mono" aria-hidden="true">F</span></a>
+        <p class="kicker">Projects</p>
+        <h3><a href="https://github.com/itzdxrius/finbro">FinBro</a></h3>
+        <p class="dek">Personal finance app.</p>
+        <p class="byline">5-person team — React, TypeScript, Supabase, Plaid, Vercel</p>
+      </article>
+      <article class="rail-story">
+        <a class="rail-visual" href="https://github.com/Anikahakim/Let-s-Hang" aria-label="Let's Hang on GitHub"><span class="mono" aria-hidden="true">L</span></a>
+        <p class="kicker">Projects</p>
+        <h3><a href="https://github.com/Anikahakim/Let-s-Hang">Let's Hang</a></h3>
+        <p class="dek">Friend scheduling app.</p>
+        <p class="byline">solo — Next.js, Supabase, PostgreSQL</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="projects" id="projects" aria-label="Projects">
+    <div class="section-head"><h2>Projects</h2><span>(06)</span></div>
+    <div class="grid">
+      <article class="card">
+        <span class="num">01</span>
+        <a class="thumb" href="https://github.com/Anikahakim/Racked" aria-label="Racked on GitHub"><span aria-hidden="true">R</span></a>
+        <p class="kicker">solo</p>
+        <h3><a href="https://github.com/Anikahakim/Racked">Racked</a></h3>
+        <p class="dek">Mobile-first closet app.</p>
+      </article>
+      <article class="card">
+        <span class="num">02</span>
+        <a class="thumb" href="https://github.com/itzdxrius/finbro" aria-label="FinBro on GitHub"><span aria-hidden="true">F</span></a>
+        <p class="kicker">5-person team</p>
+        <h3><a href="https://github.com/itzdxrius/finbro">FinBro</a></h3>
+        <p class="dek">Personal finance app.</p>
+      </article>
+      <article class="card">
+        <span class="num">03</span>
+        <a class="thumb" href="https://github.com/Anikahakim/Let-s-Hang" aria-label="Let's Hang on GitHub"><span aria-hidden="true">L</span></a>
+        <p class="kicker">solo</p>
+        <h3><a href="https://github.com/Anikahakim/Let-s-Hang">Let's Hang</a></h3>
+        <p class="dek">Friend scheduling app.</p>
+      </article>
+      <article class="card">
+        <span class="num">04</span>
+        <span class="thumb" aria-hidden="true">I</span>
+        <p class="kicker">SEO team project</p>
+        <h3>Imposter</h3>
+        <p class="dek">Among Us-style social deduction game.</p>
+      </article>
+      <article class="card">
+        <span class="num">05</span>
+        <span class="thumb" aria-hidden="true">M</span>
+        <p class="kicker">class project</p>
+        <h3>Mira</h3>
+        <p class="dek">Strava-style photography app.</p>
+      </article>
+      <article class="card">
+        <span class="num">06</span>
+        <span class="thumb" aria-hidden="true">A</span>
+        <p class="kicker">class project</p>
+        <h3>AquaBalance Pro</h3>
+        <p class="dek">Arduino/C++ system automating fish feeding and pH regulation with non-blocking millis() timers.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="quote" aria-label="Currently">
+    <p>Looking for Summer 2027 SWE internships, NYC first</p>
+  </section>
+
+  <footer class="contact" id="contact">
+    <p class="foot-brand">Anika Hakim</p>
+    <p class="links">
+      <a href="mailto:ah7203@nyu.edu">ah7203@nyu.edu</a> ·
+      <a href="https://github.com/Anikahakim">GitHub</a> ·
+      <a href="https://www.linkedin.com/in/anika-hakim/">LinkedIn</a> ·
+      <a href="/public/AnikaHakim_Resume.pdf">Resume</a>
+    </p>
+  </footer>
+</main>
+
+<script>
+(function () {
+  var WRITE = 1200, HOLD = 500, FLIGHT = 700;
+  var overlay = document.querySelector('[data-intro]');
+  var sig = document.querySelector('[data-intro-sig]');
+  var bg = document.querySelector('[data-intro-bg]');
+  var pen = document.querySelector('[data-intro-pen]');
+  var body = document.body;
+  var store = null;
+  try { store = window.sessionStorage; } catch (e) { store = null; }
+  function wasPlayed() {
+    try { return !!(store && store.getItem('ah-intro-played')); }
+    catch (e) { return false; }
+  }
+  function markPlayed() {
+    try { if (store) store.setItem('ah-intro-played', '1'); } catch (e) {}
+  }
+  function finish() {
+    markPlayed();
+    if (body) { body.classList.add('nav-locked'); body.classList.remove('intro-playing'); }
+    if (overlay) overlay.style.display = 'none';
+  }
+  var reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  if (reduce || wasPlayed() || !overlay || !sig || !bg) { finish(); return; }
+  overlay.removeAttribute('hidden');
+  if (body) body.classList.add('intro-playing');
+  overlay.addEventListener('click', finish);
+  var start = null, flying = false, penGone = false;
+  var from = null, to = null;
+  function rect(el) {
+    if (el && el.getBoundingClientRect) return el.getBoundingClientRect();
+    return null;
+  }
+  function easeInOutCubic(x) { return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; }
+  function beginFlight() {
+    if (body) body.classList.add('nav-locked');
+    from = rect(sig);
+    var brand = document.querySelector('[data-nav-brand]');
+    to = rect(brand);
+  }
+  function frame(t) {
+    if (start === null) start = t;
+    var el = t - start;
+    if (el < WRITE) {
+      var p = Math.max(0, el / WRITE);
+      sig.style.clipPath = 'inset(0 ' + (100 - 100 * p).toFixed(2) + '% 0 0)';
+      if (pen && !penGone) pen.style.left = (p * 100).toFixed(2) + '%';
+    } else {
+      sig.style.clipPath = 'inset(0 0% 0 0)';
+      if (pen && !penGone) { pen.style.opacity = '0'; penGone = true; }
+    }
+    if (el >= WRITE + HOLD && !flying) { flying = true; beginFlight(); }
+    if (flying) {
+      var fp = Math.min(1, (el - WRITE - HOLD) / FLIGHT);
+      var e = easeInOutCubic(fp);
+      if (from && to && from.width > 0 && to.width > 0) {
+        var s = to.width / from.width;
+        var scale = 1 + (s - 1) * e;
+        var tx = (to.left - from.left) * e;
+        var ty = (to.top - from.top) * e;
+        sig.style.transform = 'translate(' + tx.toFixed(2) + 'px, ' + ty.toFixed(2) + 'px) scale(' + scale.toFixed(4) + ')';
+      }
+      bg.style.opacity = (1 - e).toFixed(3);
+      if (fp >= 1) { finish(); return; }
+    }
+    window.requestAnimationFrame(frame);
+  }
+  window.requestAnimationFrame(frame);
+})();
+</script>
+<script>
+(function () {
+  var header = document.querySelector('[data-condense]');
+  if (!header) return;
+  var THRESHOLD = 120;
+  function onScroll() {
+    if ((window.scrollY || 0) > THRESHOLD) header.classList.add('condensed');
+    else header.classList.remove('condensed');
+  }
+  window.addEventListener('scroll', onScroll);
+  onScroll();
+})();
+</script>
+</body>
+</html>

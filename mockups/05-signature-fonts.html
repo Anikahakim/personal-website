@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anika Hakim — Signature Font Options</title>
+<style>
+  :root {
+    --paper: #ffffff;
+    --ink: #111111;
+    --hairline: #e2e2e2;
+    --serif: Didot, "Bodoni MT", Cochin, Georgia, serif;
+    --sans: "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--ink); color: var(--paper); }
+  :focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+
+  .page-head {
+    text-align: center;
+    padding: 48px 24px 32px;
+    border-bottom: 1px solid var(--ink);
+  }
+  .page-head h1 {
+    margin: 0;
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(36px, 5vw, 60px);
+  }
+  .page-head p {
+    margin: 10px 0 0;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  .option { padding: 36px 32px 44px; border-left: 1px solid var(--hairline); }
+  .option:first-child { border-left: 0; }
+  .opt-num { font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; margin: 0; }
+  .opt-name { font-family: var(--serif); font-style: italic; font-size: 28px; margin: 8px 0 0; }
+  .opt-os { font-size: 12px; margin: 6px 0 0; }
+  .sample-big {
+    margin: 28px 0 0;
+    font-size: clamp(44px, 5.5vw, 68px);
+    line-height: 1.15;
+    min-height: 2.4em;
+  }
+  .opt-1 .sample-big, .opt-1 .sample-small { font-family: "Snell Roundhand", "Brush Script MT", cursive; }
+  .opt-2 .sample-big, .opt-2 .sample-small { font-family: "Savoye LET", "Snell Roundhand", cursive; }
+  .opt-3 .sample-big, .opt-3 .sample-small { font-family: "Brush Script MT", "Segoe Script", cursive; }
+  .nav-label {
+    margin: 28px 0 0;
+    padding-top: 20px;
+    border-top: 1px solid var(--hairline);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .sample-small { margin: 10px 0 0; font-size: 24px; line-height: 1.3; }
+  .status { margin: 16px 0 0; font-size: 12px; letter-spacing: 0.04em; }
+
+  .mockup-tag {
+    position: fixed;
+    right: 12px;
+    bottom: 12px;
+    z-index: 99;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    padding: 6px 10px;
+    margin: 0;
+  }
+
+  @media (max-width: 900px) {
+    .options { grid-template-columns: 1fr; }
+    .option { border-left: 0; border-top: 1px solid var(--hairline); }
+    .option:first-child { border-top: 0; }
+  }
+</style>
+</head>
+<body>
+<p class="mockup-tag">Mockup 04a — Signature Fonts</p>
+
+<header class="page-head">
+  <h1>Pick a signature</h1>
+  <p>Shown at signature size and at nav-logo size</p>
+</header>
+
+<main class="options">
+  <section class="option opt-1" data-font="Snell Roundhand" aria-label="Option 1">
+    <p class="opt-num">Option 1</p>
+    <p class="opt-name">Snell Roundhand</p>
+    <p class="opt-os">Formal script · ships with macOS</p>
+    <p class="sample-big">Anika Hakim</p>
+    <p class="nav-label">Nav size</p>
+    <p class="sample-small">Anika Hakim</p>
+    <p class="status">Checking installed fonts…</p>
+  </section>
+  <section class="option opt-2" data-font="Savoye LET" aria-label="Option 2">
+    <p class="opt-num">Option 2</p>
+    <p class="opt-name">Savoye LET</p>
+    <p class="opt-os">Modern casual · ships with macOS</p>
+    <p class="sample-big">Anika Hakim</p>
+    <p class="nav-label">Nav size</p>
+    <p class="sample-small">Anika Hakim</p>
+    <p class="status">Checking installed fonts…</p>
+  </section>
+  <section class="option opt-3" data-font="Brush Script MT" aria-label="Option 3">
+    <p class="opt-num">Option 3</p>
+    <p class="opt-name">Brush Script MT</p>
+    <p class="opt-os">Playful brush · ships with macOS + Windows</p>
+    <p class="sample-big">Anika Hakim</p>
+    <p class="nav-label">Nav size</p>
+    <p class="sample-small">Anika Hakim</p>
+    <p class="status">Checking installed fonts…</p>
+  </section>
+</main>
+
+<script>
+(function () {
+  function installed(family) {
+    var canvas = document.createElement('canvas');
+    var ctx = canvas.getContext('2d');
+    if (!ctx || !ctx.measureText) return null;
+    var probe = 'Anika Hakim';
+    function width(font) { ctx.font = '64px ' + font; return ctx.measureText(probe).width; }
+    var bases = ['monospace', 'sans-serif', 'serif'].map(width);
+    var tests = ['monospace', 'sans-serif', 'serif'].map(function (b) {
+      return width('"' + family + '", ' + b);
+    });
+    for (var i = 0; i < bases.length; i++) {
+      if (tests[i] !== bases[i]) return true;
+    }
+    return false;
+  }
+  var items = document.querySelectorAll('[data-font]');
+  items.forEach(function (el) {
+    var result = installed(el.getAttribute('data-font'));
+    var status = el.querySelector('.status');
+    if (!status) return;
+    if (result === null) status.textContent = 'Could not check installed fonts on this device';
+    else if (result) status.textContent = 'Installed on this device';
+    else status.textContent = 'Not installed — showing fallback';
+  });
+})();
+</script>
+</body>
+</html>

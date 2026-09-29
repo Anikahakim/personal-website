@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anika Hakim</title>
+<meta name="description" content="Anika Hakim. CS student at NYU Tandon and software engineer in New York. Looking for Summer 2027 SWE internships.">
+<script>document.documentElement.classList.add("js")</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400;1,6..96,500&family=Inter:wght@400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
+<style>
+  /* ---------- Design tokens: change the whole look here ---------- */
+  :root {
+    --paper: #f3efe7;
+    --ink: #151311;
+    --muted: #6f685f;
+    --rule: #151311;
+    --hair: #d6cfc3;
+    --oxblood: #5e1a20;
+    --forest: #1f3329;
+    --sand: #d8cab2;
+    --cream: #f3efe7;
+    --serif: "Bodoni Moda", Didot, "Bodoni MT", Georgia, serif;
+    --sans: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --script: "Pinyon Script", "Snell Roundhand", cursive;
+    --pad: clamp(16px, 4vw, 56px);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  ::selection { background: var(--oxblood); color: var(--cream); }
+  :focus-visible { outline: 2px solid var(--oxblood); outline-offset: 3px; }
+  .label {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .link {
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 1px;
+  }
+  .link:hover { color: var(--oxblood); }
+
+  /* ---------- Nav ---------- */
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 50;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px var(--pad);
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--hair);
+  }
+  .brand {
+    font-family: var(--script);
+    font-size: 30px;
+    line-height: 1;
+    text-decoration: none;
+  }
+  .nav ul { display: flex; gap: 28px; list-style: none; margin: 0; padding: 0; }
+  .nav ul a { text-decoration: none; }
+  .nav ul a:hover { color: var(--oxblood); }
+  .nav ul span { color: var(--muted); margin-right: 6px; }
+
+  /* ---------- Intro ---------- */
+  body.intro-playing { overflow: hidden; }
+  .intro { position: fixed; inset: 0; z-index: 100; cursor: pointer; }
+  .intro[hidden] { display: none; }
+  .intro-bg { position: absolute; inset: 0; background: var(--paper); }
+  .intro-sig {
+    position: absolute;
+    left: 50%; top: 50%;
+    transform-origin: 0 0;
+    font-family: var(--script);
+    font-size: clamp(72px, 13vw, 180px);
+    line-height: 1.3;
+    white-space: nowrap;
+    clip-path: inset(0 100% 0 0);
+  }
+  .intro-skip {
+    position: absolute;
+    bottom: 24px; left: 0; right: 0;
+    text-align: center;
+    color: var(--muted);
+  }
+
+  /* ---------- Cover ---------- */
+  .cover {
+    min-height: 100vh;
+    min-height: 100svh;
+    padding: 96px var(--pad) 40px;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 32px;
+  }
+  .cover-top, .cover-bottom {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    border-top: 1px solid var(--rule);
+    padding-top: 12px;
+  }
+  .cover-main {
+    display: grid;
+    grid-template-columns: 1fr minmax(220px, 300px);
+    gap: 48px;
+    align-items: end;
+  }
+  .cover h1 {
+    margin: 0;
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(56px, 10.5vw, 176px);
+    line-height: 0.92;
+    letter-spacing: -0.025em;
+  }
+  .cover h1 em { font-style: italic; color: var(--oxblood); }
+  .coverlines { list-style: none; margin: 0; padding: 0; }
+  .coverlines li { border-top: 1px solid var(--hair); padding: 12px 0; }
+  .coverlines li:last-child { border-bottom: 1px solid var(--hair); }
+  .coverlines a { display: block; text-decoration: none; }
+  .coverlines .num { color: var(--muted); }
+  .coverlines .t { display: block; font-family: var(--serif); font-size: 26px; line-height: 1.1; margin-top: 2px; }
+  .coverlines a:hover .t { font-style: italic; color: var(--oxblood); }
+  .coverlines .d { display: block; font-size: 13px; color: var(--muted); }
+
+  /* ---------- Section heads ---------- */
+  .section { padding: 120px var(--pad) 0; }
+  .shead {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 14px;
+    margin-bottom: 56px;
+  }
+  .shead h2 {
+    margin: 0;
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(40px, 6vw, 88px);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .shead h2 em { font-style: italic; }
+
+  /* ---------- Lookbook (featured work) ---------- */
+  .look {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 32px;
+    align-items: end;
+    margin-bottom: 120px;
+  }
+  .plate {
+    grid-column: 1 / span 7;
+    position: relative;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 24px;
+    text-decoration: none;
+    transition: transform 0.6s cubic-bezier(.2,.7,.2,1);
+  }
+  .plate:hover { transform: scale(0.985); }
+  .plate img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .plate .p-num {
+    font-family: var(--serif);
+    font-size: clamp(120px, 20vw, 300px);
+    line-height: 0.8;
+    letter-spacing: -0.04em;
+  }
+  .plate .p-name {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(48px, 7vw, 110px);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+  }
+  .plate .p-foot { display: flex; justify-content: space-between; gap: 12px; }
+  .plate--oxblood { background: var(--oxblood); color: var(--cream); }
+  .plate--forest { background: var(--forest); color: var(--cream); }
+  .plate--sand { background: var(--sand); color: var(--ink); }
+  .look-text { grid-column: 9 / span 4; padding-bottom: 8px; }
+  .look.flip .plate { grid-column: 6 / span 7; order: 2; }
+  .look.flip .look-text { grid-column: 1 / span 4; order: 1; }
+  .look-text h3 {
+    margin: 10px 0 0;
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(36px, 4vw, 56px);
+    line-height: 1;
+  }
+  .look-text .tag { font-family: var(--serif); font-style: italic; font-size: 20px; margin: 8px 0 0; }
+  .look-text ul { list-style: none; margin: 20px 0 0; padding: 0; }
+  .look-text li { border-top: 1px solid var(--hair); padding: 10px 0; font-size: 14px; }
+  .look-text li:last-child { border-bottom: 1px solid var(--hair); }
+  .stack { margin: 18px 0 0; color: var(--muted); }
+  .links { display: flex; gap: 20px; margin: 18px 0 0; }
+
+  /* ---------- Index (other work) ---------- */
+  .index { list-style: none; margin: 0; padding: 0; }
+  .index li {
+    display: grid;
+    grid-template-columns: 60px 1.1fr 2fr 1fr;
+    gap: 24px;
+    align-items: baseline;
+    border-top: 1px solid var(--hair);
+    padding: 22px 0;
+  }
+  .index li:last-child { border-bottom: 1px solid var(--hair); }
+  .index .n { color: var(--muted); }
+  .index h3 { margin: 0; font-family: var(--serif); font-weight: 400; font-size: 32px; line-height: 1; }
+  .index li:hover h3 { font-style: italic; color: var(--oxblood); }
+  .index p { margin: 0; font-size: 14px; }
+  .index .ctx { color: var(--muted); text-align: right; }
+
+  /* ---------- Experience ---------- */
+  .jobs { list-style: none; margin: 0; padding: 0; }
+  .job {
+    display: grid;
+    grid-template-columns: 180px 1fr 1.3fr;
+    gap: 32px;
+    border-top: 1px solid var(--hair);
+    padding: 28px 0;
+  }
+  .job:last-child { border-bottom: 1px solid var(--hair); }
+  .job .when { color: var(--muted); padding-top: 6px; }
+  .job h3 { margin: 0; font-family: var(--serif); font-weight: 400; font-size: 28px; line-height: 1.1; }
+  .job .org { margin: 6px 0 0; color: var(--muted); }
+  .job ul { margin: 0; padding: 0; list-style: none; font-size: 14px; }
+  .job li + li { margin-top: 8px; }
+
+  /* ---------- About ---------- */
+  .about-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 64px; }
+  .standfirst {
+    margin: 0;
+    font-family: var(--serif);
+    font-size: clamp(28px, 3.4vw, 46px);
+    line-height: 1.18;
+    letter-spacing: -0.01em;
+  }
+  .standfirst em { color: var(--oxblood); }
+  .facts { margin: 0; }
+  .facts div { border-top: 1px solid var(--hair); padding: 14px 0; display: grid; grid-template-columns: 120px 1fr; gap: 16px; }
+  .facts div:last-child { border-bottom: 1px solid var(--hair); }
+  .facts dt { color: var(--muted); }
+  .facts dd { margin: 0; font-size: 14px; }
+
+  /* ---------- Contact ---------- */
+  .contact {
+    margin-top: 160px;
+    background: var(--ink);
+    color: var(--cream);
+    padding: 96px var(--pad) 32px;
+  }
+  .contact .kicker { color: #a79f94; }
+  .contact h2 {
+    margin: 18px 0 0;
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(44px, 8vw, 132px);
+    line-height: 0.95;
+    letter-spacing: -0.025em;
+  }
+  .contact h2 em { font-style: italic; }
+  .contact .email {
+    display: inline-block;
+    margin-top: 40px;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(26px, 4vw, 52px);
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+  }
+  .contact .email:hover { color: var(--sand); }
+  .contact-row { display: flex; flex-wrap: wrap; gap: 28px; margin-top: 40px; }
+  .btn {
+    display: inline-block;
+    padding: 14px 26px;
+    border: 1px solid var(--cream);
+    text-decoration: none;
+  }
+  .btn:hover { background: var(--cream); color: var(--ink); }
+  .foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 16px;
+    margin-top: 120px;
+    border-top: 1px solid #3a3531;
+    padding-top: 16px;
+    color: #a79f94;
+  }
+  .foot .sig { font-family: var(--script); font-size: 44px; line-height: 1; color: var(--cream); }
+
+  /* ---------- Reveal ---------- */
+  .js .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.9s ease, transform 0.9s cubic-bezier(.2,.7,.2,1); }
+  .js .reveal.in { opacity: 1; transform: none; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 960px) {
+    .nav ul { gap: 16px; }
+    .nav ul span { display: none; }
+    .cover-main { grid-template-columns: 1fr; gap: 32px; }
+    .look, .look.flip { grid-template-columns: 1fr; gap: 20px; margin-bottom: 88px; }
+    .plate, .look.flip .plate, .look-text, .look.flip .look-text { grid-column: 1 / -1; order: 0; }
+    .index li { grid-template-columns: 40px 1fr; }
+    .index p, .index .ctx { grid-column: 2; text-align: left; }
+    .job { grid-template-columns: 1fr; gap: 10px; }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  }
+  @media (max-width: 560px) {
+    .nav ul li:nth-child(2), .nav ul li:nth-child(3) { display: none; }
+    .brand { font-size: 26px; }
+    .section { padding-top: 88px; }
+    .cover-top span:last-child { display: none; }
+    .foot { flex-direction: column; align-items: start; }
+    .facts div { grid-template-columns: 1fr; gap: 4px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .js .reveal { opacity: 1; transform: none; transition: none; }
+    .plate { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="intro" data-intro hidden aria-hidden="true">
+  <div class="intro-bg" data-intro-bg></div>
+  <span class="intro-sig" data-intro-sig>Anika Hakim</span>
+  <p class="intro-skip label" data-intro-skip>Click to skip</p>
+</div>
+
+<header class="nav">
+  <a class="brand" data-nav-brand href="#top" aria-label="Anika Hakim, back to top">Anika Hakim</a>
+  <nav aria-label="Primary">
+    <ul class="label">
+      <li><a href="#work"><span>01</span>Work</a></li>
+      <li><a href="#experience"><span>02</span>Experience</a></li>
+      <li><a href="#about"><span>03</span>About</a></li>
+      <li><a href="public/AnikaHakim_Resume.pdf" target="_blank" rel="noopener"><span>04</span>Resume</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- COVER -->
+  <section class="cover" aria-label="Intro">
+    <div class="cover-top label">
+      <span>Portfolio, Vol. 01</span>
+      <span>New York City</span>
+      <span>Fall 2026</span>
+    </div>
+    <div class="cover-main">
+      <h1>Software engineer, born and raised in <em>Queens.</em></h1>
+      <ul class="coverlines" aria-label="Featured projects">
+        <li><a href="#racked"><span class="num label">01</span><span class="t">Racked</span><span class="d">A closet app that styles your outfits</span></a></li>
+        <li><a href="#finbro"><span class="num label">02</span><span class="t">FinBro</span><span class="d">Personal finance, built with a team of five</span></a></li>
+        <li><a href="#lets-hang"><span class="num label">03</span><span class="t">Let's Hang</span><span class="d">Finds when your friends are free</span></a></li>
+      </ul>
+    </div>
+    <div class="cover-bottom label">
+      <span>CS at NYU Tandon, Dec 2027</span>
+      <span>Seeking Summer 2027 SWE internships</span>
+    </div>
+  </section>
+
+  <!-- FEATURED WORK -->
+  <section class="section" id="work" aria-label="Selected work">
+    <div class="shead">
+      <h2>Selected <em>Work</em></h2>
+      <span class="label">(03)</span>
+    </div>
+
+    <article class="look reveal" id="racked">
+      <a class="plate plate--oxblood" href="https://github.com/Anikahakim/Racked" target="_blank" rel="noopener" aria-label="Racked on GitHub">
+        <!-- To add a screenshot: <img src="public/images/racked.jpg" alt="Racked outfit builder"> -->
+        <span class="p-num">01</span>
+        <span class="p-name">Racked</span>
+        <span class="p-foot label"><span>Solo</span><span>Next.js / Supabase / Claude API</span></span>
+      </a>
+      <div class="look-text">
+        <span class="label">Solo project</span>
+        <h3>Racked</h3>
+        <p class="tag">Mobile-first closet app.</p>
+        <ul>
+          <li>Client-side background removal on clothing photos</li>
+          <li>Claude vision categorization with forced tool use and a fixed schema</li>
+          <li>Rule-based outfit pairing with color and pattern scoring</li>
+          <li>Tinder-style swipe outfit builder</li>
+        </ul>
+        <p class="stack label">Next.js, Supabase, Claude API, Vercel</p>
+        <div class="links label"><a class="link" href="https://github.com/Anikahakim/Racked" target="_blank" rel="noopener">GitHub ↗</a></div>
+      </div>
+    </article>
+
+    <article class="look flip reveal" id="finbro">
+      <a class="plate plate--forest" href="https://finbro-lime.vercel.app" target="_blank" rel="noopener" aria-label="FinBro live site">
+        <span class="p-num">02</span>
+        <span class="p-name">FinBro</span>
+        <span class="p-foot label"><span>Team of 5</span><span>React / TypeScript / Plaid</span></span>
+      </a>
+      <div class="look-text">
+        <span class="label">5-person team</span>
+        <h3>FinBro</h3>
+        <p class="tag">Personal finance app.</p>
+        <ul>
+          <li>Second-most commits on the team</li>
+          <li>Plaid bank account linking, budget tracking, and transaction logic</li>
+          <li>Registration flow plus dashboard and history pages</li>
+          <li>Vitest unit and integration test suite</li>
+        </ul>
+        <p class="stack label">React, TypeScript, Supabase, Plaid, Vercel</p>
+        <div class="links label">
+          <a class="link" href="https://finbro-lime.vercel.app" target="_blank" rel="noopener">Live ↗</a>
+          <a class="link" href="https://github.com/itzdxrius/finbro" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="look reveal" id="lets-hang">
+      <a class="plate plate--sand" href="https://github.com/Anikahakim/Let-s-Hang" target="_blank" rel="noopener" aria-label="Let's Hang on GitHub">
+        <span class="p-num">03</span>
+        <span class="p-name">Let's Hang</span>
+        <span class="p-foot label"><span>Solo</span><span>Next.js / PostgreSQL</span></span>
+      </a>
+      <div class="look-text">
+        <span class="label">Solo project</span>
+        <h3>Let's Hang</h3>
+        <p class="tag">Friend scheduling app.</p>
+        <ul>
+          <li>Parses uploaded Apple Calendar (.ics) files</li>
+          <li>Detects overlapping availability across multiple users</li>
+          <li>Handles conflicting events, duplicate entries, and different calendar formats</li>
+        </ul>
+        <p class="stack label">Next.js, Supabase, PostgreSQL</p>
+        <div class="links label"><a class="link" href="https://github.com/Anikahakim/Let-s-Hang" target="_blank" rel="noopener">GitHub ↗</a></div>
+      </div>
+    </article>
+  </section>
+
+  <!-- OTHER WORK -->
+  <section class="section" id="more" aria-label="More work" style="padding-top:40px">
+    <div class="shead">
+      <h2>Also <em>built</em></h2>
+      <span class="label">(03)</span>
+    </div>
+    <ul class="index">
+      <li class="reveal">
+        <span class="n label">04</span>
+        <h3>Imposter</h3>
+        <p>Among Us-style social deduction game. I led the backend: Supabase/PostgreSQL schema and Flask game logic, plus HTML/JS frontend work.</p>
+        <span class="ctx label">SEO team project</span>
+      </li>
+      <li class="reveal">
+        <span class="n label">05</span>
+        <h3>Mira</h3>
+        <p>Strava-style photography app in React Native. I designed the schema (6+ entities) and built in-app search.</p>
+        <span class="ctx label">Class project</span>
+      </li>
+      <li class="reveal">
+        <span class="n label">06</span>
+        <h3>AquaBalance Pro</h3>
+        <p>Arduino and C++ system that automates fish feeding and pH regulation with non-blocking millis() timers.</p>
+        <span class="ctx label">Class project</span>
+      </li>
+    </ul>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section class="section" id="experience" aria-label="Experience">
+    <div class="shead">
+      <h2>Experience</h2>
+      <span class="label">(07)</span>
+    </div>
+    <ol class="jobs">
+      <li class="job reveal">
+        <span class="when label">Apr 2026 to now</span>
+        <div><h3>Software Engineer, Visualization</h3><p class="org label">NYU Campus Planning</p></div>
+        <ul>
+          <li>Maintain a React data visualization platform, resolving about 20 tickets a week across frontend, data, and backend.</li>
+          <li>Debug full-stack issues across React, Python data processing, and SQL, tracing root causes from the database to the UI.</li>
+        </ul>
+      </li>
+      <li class="job reveal">
+        <span class="when label">Sep 2026 to now</span>
+        <div><h3>CSE Peer Mentor</h3><p class="org label">NYU Tandon CSE Dept</p></div>
+        <ul><li>Guide incoming CS underclassmen through the transition into Tandon, working with advisors and freshmen.</li></ul>
+      </li>
+      <li class="job reveal">
+        <span class="when label">May 2026 to now</span>
+        <div><h3>AI Program Fellow</h3><p class="org label">Break Through Tech at Cornell Tech</p></div>
+        <ul>
+          <li>Year-long AI fellowship. Earned the eCornell Machine Learning Foundations Certificate.</li>
+          <li>Fall 2026 AI Studio project with LexisNexis Risk Solutions Group: a fraud risk-scoring model for auto insurance claims.</li>
+        </ul>
+      </li>
+      <li class="job reveal">
+        <span class="when label">May to Jul 2026</span>
+        <div><h3>SEO Tech Developer</h3><p class="org label">Sponsors for Educational Opportunity</p></div>
+        <ul>
+          <li>Built full-stack web apps with Flask, MySQL, and JavaScript on Scrum teams.</li>
+          <li>Led backend development of Imposter.</li>
+        </ul>
+      </li>
+      <li class="job reveal">
+        <span class="when label">Aug 2026</span>
+        <div><h3>Sophomore Extern</h3><p class="org label">SoFi</p></div>
+        <ul>
+          <li>Case challenge: "make SoFi a verb." Proposed "SoFi It," a one-tap financial check in the phone's share sheet.</li>
+          <li>Built the entire interactive prototype and demoed it to a panel of SoFi leaders. Our team won.</li>
+        </ul>
+      </li>
+      <li class="job reveal">
+        <span class="when label">Jan 2025 to now</span>
+        <div><h3>Tutor</h3><p class="org label">Kweller Prep</p></div>
+        <ul><li>SHSAT prep, Geometry, and Algebra 2, one-on-one and small groups.</li></ul>
+      </li>
+      <li class="job reveal">
+        <span class="when label">Jul 2023 to Aug 2024</span>
+        <div><h3>Computer Aide Intern</h3><p class="org label">Con Edison</p></div>
+        <ul><li>Analyzed 20,000+ cable failure records and built Python, Excel, and VBA data pipelines.</li></ul>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section" id="about" aria-label="About">
+    <div class="shead">
+      <h2>About</h2>
+      <span class="label">Anika Hakim</span>
+    </div>
+    <div class="about-grid">
+      <!-- DRAFT: rewrite this in your own words -->
+      <p class="standfirst reveal">I'm a CS student at NYU Tandon. I like building things end to end, from the <em>database</em> to the part you actually tap.</p>
+      <dl class="facts reveal">
+        <div><dt class="label">Studying</dt><dd>BS Computer Science, NYU Tandon, Dec 2027. This semester: Software Engineering, Operating Systems, Computer Security.</dd></div>
+        <div><dt class="label">Working</dt><dd>Software engineer at NYU Campus Planning. AI Fellow with Break Through Tech.</dd></div>
+        <div><dt class="label">Also</dt><dd>CSE Peer Mentor. Tutor at Kweller Prep.</dd></div>
+        <div><dt class="label">From</dt><dd>Queens, NYC</dd></div>
+        <div><dt class="label">Off the clock</dt><dd>Lifting at the gym.</dd></div>
+        <div><dt class="label">Tools</dt><dd>Python, JavaScript, TypeScript, Java, C++, SQL, React, Next.js, Flask, Supabase, PostgreSQL, MySQL, Git</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact" aria-label="Contact">
+    <span class="kicker label">Now booking</span>
+    <h2>Summer 2027<br><em>SWE internships.</em></h2>
+    <a class="email" href="mailto:ah7203@nyu.edu">ah7203@nyu.edu</a>
+    <div class="contact-row label">
+      <a class="btn" href="public/AnikaHakim_Resume.pdf" target="_blank" rel="noopener">Resume (PDF)</a>
+      <a class="btn" href="https://github.com/Anikahakim" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn" href="https://www.linkedin.com/in/anika-hakim/" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+    <div class="foot label">
+      <span class="sig" aria-hidden="true">Anika Hakim</span>
+      <span>New York City, 2026</span>
+    </div>
+  </section>
+</main>
+
+<script>
+/* ---------- Intro: signature writes, holds, then flies into the nav ---------- */
+(function () {
+  var TIMING = { write: 1300, hold: 450, flight: 750 };  // tweak here
+  var overlay = document.querySelector('[data-intro]');
+  var sig = document.querySelector('[data-intro-sig]');
+  var bg = document.querySelector('[data-intro-bg]');
+  var brand = document.querySelector('[data-nav-brand]');
+  var body = document.body;
+  var KEY = 'ah-intro-played';
+  function played() { try { return !!sessionStorage.getItem(KEY); } catch (e) { return false; } }
+  function mark() { try { sessionStorage.setItem(KEY, '1'); } catch (e) {} }
+  var done = false;
+  function finish() {
+    if (done) return; done = true;
+    mark();
+    body.classList.remove('intro-playing');
+    if (brand) brand.style.visibility = '';
+    if (overlay) overlay.style.display = 'none';
+    window.removeEventListener('keydown', finish);
+  }
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce || played() || !overlay || !sig || !bg || !brand) return;
+
+  overlay.removeAttribute('hidden');
+  body.classList.add('intro-playing');
+  brand.style.visibility = 'hidden';
+  overlay.addEventListener('click', finish);
+  window.addEventListener('keydown', finish);
+
+  function ease(x) { return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; }
+
+  function run() {
+    // center the signature using its real size once the font is in
+    var w = sig.offsetWidth, h = sig.offsetHeight;
+    var cx = -w / 2, cy = -h / 2;
+    sig.style.transform = 'translate(' + cx + 'px,' + cy + 'px)';
+    var start = null, from = null, to = null;
+    function frame(t) {
+      if (done) return;
+      if (start === null) start = t;
+      var el = t - start;
+      var p = Math.min(1, el / TIMING.write);
+      sig.style.clipPath = 'inset(0 ' + (100 - 100 * ease(p)).toFixed(2) + '% 0 0)';
+      var f = el - TIMING.write - TIMING.hold;
+      if (f > 0) {
+        if (!from) { from = sig.getBoundingClientRect(); to = brand.getBoundingClientRect(); }
+        var fp = Math.min(1, f / TIMING.flight), e = ease(fp);
+        var s = 1 + (to.width / from.width - 1) * e;
+        var tx = cx + (to.left - from.left) * e;
+        var ty = cy + (to.top - from.top) * e;
+        sig.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(' + s + ')';
+        bg.style.opacity = (1 - e).toFixed(3);
+        if (fp >= 1) { finish(); return; }
+      }
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+  // wait for the script font so the signature isn't drawn in a fallback font
+  var ready = document.fonts && document.fonts.load ? document.fonts.load('64px "Pinyon Script"') : Promise.resolve();
+  Promise.race([ready, new Promise(function (r) { setTimeout(r, 1200); })]).then(run);
+})();
+
+/* ---------- Scroll reveal ---------- */
+(function () {
+  var els = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('in'); }); return; }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+  }, { rootMargin: '0px 0px -10% 0px' });
+  els.forEach(function (e) { io.observe(e); });
+})();
+</script>
+</body>
+</html>

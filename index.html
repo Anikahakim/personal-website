@@ -1,113 +1,557 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Anika Hakim — Portfolio</title>
-  <meta name="description" content="Personal website of Anika Hakim: projects, skills, and contact." />
-  <link rel="stylesheet" href="styles.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anika Hakim</title>
+<meta name="description" content="Anika Hakim. CS student at NYU Tandon and software engineer in New York. Looking for Summer 2027 SWE internships.">
+<meta name="theme-color" content="#0e0d0c">
+<script>document.documentElement.classList.add("js")</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400;1,6..96,500&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ---------- Design tokens: change the whole look here ---------- */
+  :root {
+    --bg: #0e0d0c;
+    --panel: #161412;
+    --panel-2: #1d1a17;
+    --line: #2b2723;
+    --text: #ede7dd;
+    --muted: #8e867b;
+    --accent: #f0a6ae;      /* rose */
+    --accent-2: #e8c07a;    /* champagne */
+    --ok: #7fd49a;          /* status green */
+    --serif: "Bodoni Moda", Didot, "Bodoni MT", Georgia, serif;
+    --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    --sans: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --pad: clamp(16px, 4vw, 56px);
+    --max: 1240px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  ::selection { background: var(--accent); color: var(--bg); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .prompt { color: var(--accent); }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); }
+
+  /* ---------- Nav ---------- */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav .wrap { display: flex; justify-content: space-between; align-items: center; height: 60px; }
+  .brand { font-family: var(--mono); font-size: 14px; text-decoration: none; }
+  .brand b { color: var(--accent); font-weight: 500; }
+  .nav ul { display: flex; align-items: center; gap: 26px; list-style: none; margin: 0; padding: 0; font-family: var(--mono); font-size: 13px; }
+  .nav ul a { text-decoration: none; color: var(--muted); }
+  .nav ul a:hover { color: var(--text); }
+  .nav ul .resume a { color: var(--bg); background: var(--accent); padding: 6px 12px; border-radius: 4px; }
+  .nav ul .resume a:hover { background: var(--text); }
+
+  /* ---------- Terminal window ---------- */
+  .term { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+  .term-bar {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 14px;
+    background: var(--panel-2);
+    border-bottom: 1px solid var(--line);
+    font-family: var(--mono); font-size: 12px; color: var(--muted);
+  }
+  .dots { display: flex; gap: 6px; margin-right: 8px; }
+  .dots i { width: 10px; height: 10px; border-radius: 50%; display: block; }
+  .dots i:nth-child(1) { background: #e0776f; }
+  .dots i:nth-child(2) { background: #e6c070; }
+  .dots i:nth-child(3) { background: #7fd49a; }
+  .term-body { padding: 18px 20px; font-family: var(--mono); font-size: 13.5px; line-height: 1.75; }
+  .term-body p { margin: 0; }
+  .k { color: var(--accent-2); }
+  .s { color: var(--ok); }
+  .p { color: var(--muted); }
+  .cursor { display: inline-block; width: 8px; height: 1.1em; background: var(--accent); vertical-align: -2px; animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* ---------- Hero ---------- */
+  .hero { padding: 88px 0 96px; }
+  .status {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--mono); font-size: 12.5px;
+    border: 1px solid var(--line); border-radius: 999px;
+    padding: 6px 14px; color: var(--muted);
+  }
+  .status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 4px rgba(127,212,154,.15); }
+  .hero-grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: 56px; align-items: center; margin-top: 28px; }
+  .hero h1 {
+    margin: 0;
+    font-family: var(--serif); font-weight: 400;
+    font-size: clamp(52px, 7.6vw, 116px);
+    line-height: 0.95; letter-spacing: -0.025em;
+  }
+  .hero h1 em { color: var(--accent); }
+  .hero .sub { margin: 28px 0 0; max-width: 46ch; color: var(--muted); font-size: 16px; }
+  .cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 13px;
+    padding: 11px 16px; border-radius: 6px;
+    border: 1px solid var(--line); text-decoration: none;
+    background: var(--panel);
+    transition: border-color .2s, background .2s, color .2s;
+  }
+  .btn:hover { border-color: var(--accent); }
+  .btn.primary { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+  .btn.primary:hover { background: var(--text); border-color: var(--text); }
+  .btn .dollar { color: var(--accent); }
+  .btn.primary .dollar { color: var(--bg); opacity: .6; }
+
+  /* ---------- Section heads ---------- */
+  .section { padding: 96px 0 0; }
+  .shead { display: flex; justify-content: space-between; align-items: end; gap: 16px; margin-bottom: 40px; }
+  .shead .cmd { font-family: var(--mono); font-size: 13px; color: var(--muted); margin: 0 0 10px; }
+  .shead h2 {
+    margin: 0; font-family: var(--serif); font-weight: 400;
+    font-size: clamp(40px, 5.4vw, 76px); line-height: 1; letter-spacing: -0.02em;
+  }
+  .shead h2 em { color: var(--accent); }
+  .shead .count { font-family: var(--mono); font-size: 13px; color: var(--muted); white-space: nowrap; }
+
+  /* ---------- Project cards ---------- */
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .card { display: flex; flex-direction: column; transition: transform .3s, border-color .3s; }
+  .card:hover { transform: translateY(-4px); border-color: #4a423b; }
+  .card .term-body { font-family: var(--sans); font-size: 14px; line-height: 1.6; display: flex; flex-direction: column; flex: 1; padding: 22px; }
+  .badge {
+    align-self: flex-start;
+    font-family: var(--mono); font-size: 11px;
+    padding: 3px 9px; border-radius: 999px;
+    border: 1px solid var(--line); color: var(--muted);
+  }
+  .badge.live { color: var(--ok); border-color: rgba(127,212,154,.35); }
+  .card h3 {
+    margin: 16px 0 0; font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: 44px; line-height: 1; letter-spacing: -0.02em;
+  }
+  .card .tag { margin: 8px 0 0; color: var(--muted); }
+  .card ul { margin: 18px 0 0; padding: 0; list-style: none; }
+  .card li { position: relative; padding-left: 18px; margin-top: 8px; }
+  .card li::before { content: ">"; position: absolute; left: 0; color: var(--accent); font-family: var(--mono); }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 20px; }
+  .tags span {
+    font-family: var(--mono); font-size: 11.5px;
+    padding: 3px 9px; border-radius: 4px;
+    background: rgba(240,166,174,.08); color: var(--accent);
+    border: 1px solid rgba(240,166,174,.18);
+  }
+  .tags span:nth-child(3n+2) { background: rgba(232,192,122,.08); color: var(--accent-2); border-color: rgba(232,192,122,.2); }
+  .tags span:nth-child(3n+3) { background: rgba(127,212,154,.07); color: var(--ok); border-color: rgba(127,212,154,.2); }
+  .card .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto; padding-top: 22px; }
+  .card .actions .btn { padding: 8px 12px; font-size: 12px; }
+  .cards.small { margin-top: 20px; grid-template-columns: repeat(2, 1fr); }
+  .cards.small h3 { font-size: 30px; margin-top: 12px; }
+
+  /* ---------- Experience: git log ---------- */
+  .log { list-style: none; margin: 0; padding: 0; position: relative; }
+  .log::before { content: ""; position: absolute; left: 7px; top: 8px; bottom: 8px; width: 1px; background: var(--line); }
+  .commit { position: relative; padding: 0 0 36px 40px; display: grid; grid-template-columns: 1fr 1.3fr; gap: 32px; }
+  .commit::before {
+    content: ""; position: absolute; left: 0; top: 6px;
+    width: 15px; height: 15px; border-radius: 50%;
+    background: var(--bg); border: 2px solid var(--accent);
+  }
+  .commit.now::before { background: var(--accent); }
+  .commit .when { font-family: var(--mono); font-size: 12px; color: var(--accent-2); }
+  .commit h3 { margin: 4px 0 0; font-family: var(--serif); font-weight: 400; font-size: 28px; line-height: 1.1; }
+  .commit .org { margin: 6px 0 0; font-family: var(--mono); font-size: 12.5px; color: var(--muted); }
+  .commit ul { margin: 0; padding: 0; list-style: none; color: #cfc8bd; font-size: 14px; }
+  .commit li + li { margin-top: 8px; }
+
+  /* ---------- About ---------- */
+  .about-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: start; }
+  .standfirst { margin: 0; font-family: var(--serif); font-size: clamp(28px, 3.2vw, 42px); line-height: 1.2; letter-spacing: -0.01em; }
+  .standfirst em { color: var(--accent); }
+  .about-grid .term-body .row { display: grid; grid-template-columns: 120px 1fr; gap: 12px; padding: 4px 0; }
+  .skills { margin-top: 28px; }
+  .skills h4 { margin: 0 0 10px; font-family: var(--mono); font-weight: 400; font-size: 13px; color: var(--muted); }
+  .skills .tags { margin: 0 0 18px; }
+
+  /* ---------- Contact ---------- */
+  .contact { padding: 120px 0 48px; }
+  .contact-box { text-align: center; padding: 72px 24px; border: 1px solid var(--line); border-radius: 14px; background: radial-gradient(ellipse at top, rgba(240,166,174,.08), transparent 60%), var(--panel); }
+  .contact-box .cmd { font-family: var(--mono); font-size: 13px; color: var(--muted); margin: 0; }
+  .contact-box h2 { margin: 18px 0 0; font-family: var(--serif); font-weight: 400; font-size: clamp(40px, 6.4vw, 96px); line-height: 1; letter-spacing: -0.025em; }
+  .contact-box h2 em { color: var(--accent); }
+  .contact-box .email { display: inline-block; margin-top: 28px; font-family: var(--mono); font-size: clamp(16px, 2.2vw, 22px); text-decoration: none; border-bottom: 1px solid var(--accent); padding-bottom: 2px; }
+  .contact-box .email:hover { color: var(--accent); }
+  .contact-box .cta { justify-content: center; }
+  footer { display: flex; justify-content: space-between; gap: 16px; margin-top: 40px; font-family: var(--mono); font-size: 12px; color: var(--muted); }
+
+  /* ---------- Intro: typing ---------- */
+  body.intro-playing { overflow: hidden; }
+  .intro { position: fixed; inset: 0; z-index: 100; background: var(--bg); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: opacity .6s ease; padding: 24px; }
+  .intro[hidden] { display: none; }
+  .intro.out { opacity: 0; pointer-events: none; }
+  .intro-inner { width: min(760px, 100%); }
+  .intro-line { font-family: var(--mono); font-size: clamp(14px, 1.8vw, 18px); margin: 0; min-height: 1.6em; }
+  .intro-name {
+    margin: 16px 0 0; font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: clamp(56px, 10vw, 136px); line-height: 1; letter-spacing: -0.025em;
+    opacity: 0; transform: translateY(12px); transition: opacity .6s ease, transform .6s ease;
+  }
+  .intro-name.show { opacity: 1; transform: none; }
+  .intro-skip { position: fixed; bottom: 24px; left: 0; right: 0; text-align: center; font-family: var(--mono); font-size: 12px; color: var(--muted); }
+
+  /* ---------- Reveal ---------- */
+  .js .reveal { opacity: 0; transform: translateY(20px); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1); }
+  .js .reveal.in { opacity: 1; transform: none; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1000px) {
+    .cards { grid-template-columns: 1fr 1fr; }
+    .hero-grid, .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .commit { grid-template-columns: 1fr; gap: 10px; }
+  }
+  @media (max-width: 640px) {
+    .cards, .cards.small { grid-template-columns: 1fr; }
+    .nav ul li:not(.resume):not(:first-child) { display: none; }
+    .hero { padding: 56px 0 64px; }
+    .section { padding-top: 72px; }
+    .about-grid .term-body .row { grid-template-columns: 1fr; gap: 0; padding: 6px 0; }
+    footer { flex-direction: column; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .js .reveal { opacity: 1; transform: none; transition: none; }
+    .card, .intro, .intro-name { transition: none; }
+    .cursor { animation: none; }
+  }
+</style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="wrap header-inner">
-      <a class="brand" href="#top">Anika Hakim</a>
-      <nav class="nav">
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#skills">Skills</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </div>
-  </header>
 
-  <main id="top">
-    <section class="wrap hero">
-      <div class="hero-text">
-        <h1>Hi, I'm Anika.<br />I build things with code.</h1>
-        <p class="lede">NYU student interested in software, data, and systems. This site collects my projects and ways to reach me.</p>
-        <p>
-          <a class="btn" href="#projects">See my work</a>
-          <a class="btn btn-ghost" href="#contact">Get in touch</a>
-        </p>
+<!-- Intro: types a command, then reveals the name -->
+<div class="intro" data-intro hidden aria-hidden="true">
+  <div class="intro-inner">
+    <p class="intro-line"><span class="prompt">anika@nyc</span><span class="p">:~$</span> <span data-intro-type></span><span class="cursor"></span></p>
+    <p class="intro-name" data-intro-name>Anika Hakim</p>
+  </div>
+  <p class="intro-skip">click or press any key to skip</p>
+</div>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top"><b>~/</b>anika-hakim</a>
+    <nav aria-label="Primary">
+      <ul>
+        <li><a href="#work">./work</a></li>
+        <li><a href="#experience">./experience</a></li>
+        <li><a href="#about">./about</a></li>
+        <li><a href="#contact">./contact</a></li>
+        <li class="resume"><a href="public/AnikaHakim_Resume.pdf" target="_blank" rel="noopener">anika's resume</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="top" class="wrap">
+
+  <!-- HERO -->
+  <section class="hero" aria-label="Intro">
+    <span class="status">available_for_hire: summer 2027</span>
+    <div class="hero-grid">
+      <div>
+        <h1>Software engineer, born and raised in <em>Queens.</em></h1>
+        <p class="sub">CS at NYU Tandon, graduating December 2027. Software engineer at NYU Campus Planning, SEO Tech Developer, and Break Through Tech AI Fellow.</p>
+        <div class="cta">
+          <a class="btn primary" href="#work"><span class="dollar">$</span> ls ./projects</a>
+          <a class="btn" href="public/AnikaHakim_Resume.pdf" target="_blank" rel="noopener"><span class="dollar">$</span> open anika's resume</a>
+        </div>
       </div>
-      <aside class="hero-card">
-        <img src="https://avatars.githubusercontent.com/u/0?v=4" alt="Portrait placeholder for Anika Hakim" onerror="this.style.display='none'" />
-        <p class="small">Replace this image with your photo.<br />Save it as <code>photo.jpg</code> next to this file.</p>
-      </aside>
-    </section>
-
-    <section id="about" class="wrap section">
-      <h2>About</h2>
-      <p>Write 2–3 sentences about yourself here: what you study, what you're looking for (internships, research, collaborations), and what you enjoy building. Keep it specific — one concrete interest beats a list of buzzwords.</p>
-      <ul class="facts">
-        <li><strong>School:</strong> NYU</li>
-        <li><strong>Focus:</strong> software / data / systems</li>
-        <li><strong>Looking for:</strong> internships and project collaborators</li>
-      </ul>
-    </section>
-
-    <section id="projects" class="wrap section">
-      <h2>Projects</h2>
-      <div class="project-list">
-        <article class="project">
-          <div>
-            <h3>Project One</h3>
-            <p>One-line problem it solves. One-line how you built it.</p>
-          </div>
-          <p class="links"><a href="#">Live demo</a> · <a href="#">Code</a></p>
-        </article>
-        <article class="project">
-          <div>
-            <h3>Project Two</h3>
-            <p>One-line problem it solves. One-line how you built it.</p>
-          </div>
-          <p class="links"><a href="#">Live demo</a> · <a href="#">Code</a></p>
-        </article>
-        <article class="project">
-          <div>
-            <h3>Project Three</h3>
-            <p>One-line problem it solves. One-line how you built it.</p>
-          </div>
-          <p class="links"><a href="#">Live demo</a> · <a href="#">Code</a></p>
-        </article>
-        <article class="project">
-          <div>
-            <h3>Project Four</h3>
-            <p>One-line problem it solves. One-line how you built it.</p>
-          </div>
-          <p class="links"><a href="#">Live demo</a> · <a href="#">Code</a></p>
-        </article>
+      <div class="term" aria-label="Quick facts">
+        <div class="term-bar"><span class="dots"><i></i><i></i><i></i></span>anika@nyc: ~</div>
+        <div class="term-body">
+          <p><span class="prompt">$</span> whoami</p>
+          <p>anika hakim</p>
+          <p style="margin-top:10px"><span class="prompt">$</span> cat status.json</p>
+          <p>{</p>
+          <p>&nbsp;&nbsp;<span class="k">"school"</span>: <span class="s">"NYU Tandon, Dec 2027"</span>,</p>
+          <p>&nbsp;&nbsp;<span class="k">"role"</span>: <span class="s">"SWE @ NYU Campus Planning"</span>,</p>
+          <p>&nbsp;&nbsp;<span class="k">"fellow"</span>: <span class="s">"Break Through Tech AI"</span>,</p>
+          <p>&nbsp;&nbsp;<span class="k">"seeking"</span>: <span class="s">"Summer 2027 SWE internship"</span>,</p>
+          <p>&nbsp;&nbsp;<span class="k">"location"</span>: <span class="s">"New York City"</span></p>
+          <p>}</p>
+          <p style="margin-top:10px"><span class="prompt">$</span> <span class="cursor"></span></p>
+        </div>
       </div>
-    </section>
-
-    <section id="skills" class="wrap section">
-      <h2>Skills</h2>
-      <ul class="skills">
-        <li>Python</li>
-        <li>JavaScript</li>
-        <li>HTML / CSS</li>
-        <li>Git</li>
-        <li>SQL</li>
-      </ul>
-    </section>
-
-    <section id="contact" class="wrap section">
-      <h2>Contact</h2>
-      <p>Best way to reach me is email. Links below — replace with your real ones.</p>
-      <ul class="contact-list">
-        <li>Email: <a href="mailto:ah7203@nyu.edu">ah7203@nyu.edu</a></li>
-        <li>GitHub: <a href="https://github.com/">github.com/your-username</a></li>
-        <li>LinkedIn: <a href="https://www.linkedin.com/">linkedin.com/in/your-name</a></li>
-      </ul>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="wrap">
-      <p class="small">© <span id="year">2026</span> Anika Hakim · Built with plain HTML/CSS, hosted on GitHub Pages.</p>
     </div>
-  </footer>
+  </section>
 
-  <script src="script.js"></script>
+  <!-- PROJECTS -->
+  <section class="section" id="work" aria-label="Projects" style="padding-top:24px">
+    <div class="shead">
+      <div>
+        <p class="cmd"><span class="prompt">$</span> ls ./projects --featured</p>
+        <h2>Selected <em>work</em></h2>
+      </div>
+      <span class="count">05 total</span>
+    </div>
+
+    <div class="cards">
+      <article class="term card reveal">
+        <div class="term-bar"><span class="dots"><i></i><i></i><i></i></span>racked/README.md</div>
+        <div class="term-body">
+          <span class="badge live">● live · solo</span>
+          <h3>Racked</h3>
+          <p class="tag">Mobile-first closet app.</p>
+          <ul>
+            <li>Client-side background removal on clothing photos</li>
+            <li>Claude vision categorization with forced tool use and a fixed schema</li>
+            <li>Rule-based outfit pairing with color and pattern scoring</li>
+            <li>Tinder-style swipe outfit builder</li>
+          </ul>
+          <div class="tags"><span>Next.js</span><span>Supabase</span><span>Claude API</span><span>Vercel</span></div>
+          <div class="actions">
+            <a class="btn" href="https://racked-five.vercel.app" target="_blank" rel="noopener"><span class="dollar">$</span> open live</a>
+            <a class="btn" href="https://github.com/Anikahakim/Racked" target="_blank" rel="noopener"><span class="dollar">$</span> git clone</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="term card reveal">
+        <div class="term-bar"><span class="dots"><i></i><i></i><i></i></span>finbro/README.md</div>
+        <div class="term-body">
+          <span class="badge live">● live · team project</span>
+          <h3>FinBro</h3>
+          <p class="tag">Personal finance app.</p>
+          <ul>
+            <li>Contributed the second-most commits on a 5-person team building a personal finance web app, implementing Plaid bank-account linking, budget tracking, and transaction logic.</li>
+            <li>Built the registration flow and dashboard/history pages, and wrote a Vitest unit and integration test suite; deployed on Vercel.</li>
+          </ul>
+          <div class="tags"><span>React</span><span>TypeScript</span><span>Supabase</span><span>Plaid</span><span>Vercel</span></div>
+          <div class="actions">
+            <a class="btn" href="https://finbro-lime.vercel.app" target="_blank" rel="noopener"><span class="dollar">$</span> open live</a>
+            <a class="btn" href="https://github.com/itzdxrius/finbro" target="_blank" rel="noopener"><span class="dollar">$</span> git clone</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="term card reveal">
+        <div class="term-bar"><span class="dots"><i></i><i></i><i></i></span>lets-hang/README.md</div>
+        <div class="term-body">
+          <span class="badge live">● live · solo</span>
+          <h3>Let's Hang</h3>
+          <p class="tag">Friend scheduling app.</p>
+          <ul>
+            <li>Built a full-stack scheduling app solo that parses uploaded Apple Calendar (.ics) files and automatically detects overlapping availability across multiple users.</li>
+            <li>Handled edge cases in calendar data, including conflicting events and duplicate entries, while normalizing data across different calendar formats.</li>
+          </ul>
+          <div class="tags"><span>Next.js</span><span>Supabase</span><span>PostgreSQL</span></div>
+          <div class="actions">
+            <a class="btn" href="https://let-s-hang-gray.vercel.app" target="_blank" rel="noopener"><span class="dollar">$</span> open live</a>
+            <a class="btn" href="https://github.com/Anikahakim/Let-s-Hang" target="_blank" rel="noopener"><span class="dollar">$</span> git clone</a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="cards small">
+      <article class="term card reveal">
+        <div class="term-bar"><span class="dots"><i></i><i></i><i></i></span>imposter/</div>
+        <div class="term-body">
+          <span class="badge">team project</span>
+          <h3>Imposter</h3>
+          <p class="tag">Among Us-style social deduction game. I led the backend: Supabase/PostgreSQL schema and Flask game logic, plus HTML/JS frontend work.</p>
+          <div class="tags"><span>Flask</span><span>PostgreSQL</span><span>JavaScript</span></div>
+        </div>
+      </article>
+      <article class="term card reveal">
+        <div class="term-bar"><span class="dots"><i></i><i></i><i></i></span>aquabalance-pro/</div>
+        <div class="term-body">
+          <span class="badge">class project</span>
+          <h3>AquaBalance Pro</h3>
+          <p class="tag">Arduino system that automates fish feeding and pH regulation with non-blocking millis() timers.</p>
+          <div class="tags"><span>Arduino</span><span>C++</span></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section class="section" id="experience" aria-label="Experience">
+    <div class="shead">
+      <div>
+        <p class="cmd"><span class="prompt">$</span> git log --author="anika"</p>
+        <h2>Experience</h2>
+      </div>
+      <span class="count">07 entries</span>
+    </div>
+    <ol class="log">
+      <li class="commit now reveal">
+        <div><span class="when">Apr 2026 to now</span><h3>Software Engineer, Visualization</h3><p class="org">@ NYU Campus Planning and Technical Services</p></div>
+        <ul>
+          <li>Maintain a React-based data visualization platform, resolving 20 tickets/week across frontend, data, and backend.</li>
+          <li>Debug full-stack issues spanning React, Python data processing, and SQL queries, tracing root causes from the database to the frontend display.</li>
+          <li>Use Cursor and Claude Code daily to accelerate development, reviewing and validating all AI-generated code before merging.</li>
+        </ul>
+      </li>
+      <li class="commit reveal">
+        <div><span class="when">Aug 2026</span><h3>Case Study Competition (Winner)</h3><p class="org">@ SoFi Sophomore Extern Program</p></div>
+        <ul>
+          <li>Led a team of four in a case study challenge on the prompt "make SoFi a verb" and won.</li>
+          <li>Proposed "SoFi It," a one-tap financial check in the phone's share sheet that gives an instant, reasoned verdict on a purchase or subscription without leaving the app.</li>
+          <li>Built the entire interactive mobile prototype, with six scenarios across host apps like Amazon, Mail, and Ticketmaster, and demoed it to a panel of SoFi leaders; our team won the competition.</li>
+        </ul>
+      </li>
+      <li class="commit reveal">
+        <div><span class="when">May to Jul 2026</span><h3>SEO Tech Developer</h3><p class="org">@ Sponsors for Educational Opportunity (SEO)</p></div>
+        <ul>
+          <li>Built and tested full-stack web applications end to end, from front-end UI in HTML/JS/CSS to back-end services and REST APIs in Python (Flask) and MySQL, in SCRUM teams under tight cycles.</li>
+          <li>Led backend development of Imposter, an Among Us-style social deduction game, designing the Supabase/PostgreSQL schema and Python (Flask) game logic, with hands-on HTML/JS frontend work.</li>
+        </ul>
+      </li>
+      <li class="commit now reveal">
+        <div><span class="when">May 2026 to now</span><h3>AI Program Fellow</h3><p class="org">@ Break Through Tech, Cornell Tech</p></div>
+        <ul>
+          <li>Selected for a year-long AI fellowship, completing a 9-week course in machine learning and applied statistical modeling.</li>
+          <li>Collaborated with a team to apply machine learning techniques to an industry-sponsored dataset, from data cleaning through model evaluation.</li>
+          <li>Earned the eCornell Machine Learning Foundations Certificate, covering the ML lifecycle, supervised learning, neural networks, LLMs, RAG, and agentic AI workflows.</li>
+        </ul>
+      </li>
+      <li class="commit now reveal">
+        <div><span class="when">Sep 2026 to now</span><h3>NYU Tandon Mentor</h3><p class="org">@ Computer Science and Engineering Department</p></div>
+        <ul>
+          <li>Guide incoming CS underclassmen through the transition into Tandon for the Computer Science and Engineering Department, working directly with advisors and freshmen.</li>
+        </ul>
+      </li>
+      <li class="commit now reveal">
+        <div><span class="when">Jan 2025 to now</span><h3>Tutor</h3><p class="org">@ Kweller Prep</p></div>
+        <ul>
+          <li>SHSAT prep, Geometry, and Algebra 2, one-on-one and small groups.</li>
+        </ul>
+      </li>
+      <li class="commit reveal">
+        <div><span class="when">Jul 2023 to Aug 2024</span><h3>Computer Aide Intern</h3><p class="org">@ Con Edison</p></div>
+        <ul>
+          <li>Analyzed 20,000+ cable failure records and built Python, Excel, and VBA data pipelines.</li>
+        </ul>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section" id="about" aria-label="About">
+    <div class="shead">
+      <div>
+        <p class="cmd"><span class="prompt">$</span> cat about.md</p>
+        <h2>About <em>me</em></h2>
+      </div>
+    </div>
+    <div class="about-grid">
+      <div class="reveal">
+        <!-- DRAFT: rewrite this in your own words -->
+        <p class="standfirst">I'm a CS student at NYU Tandon. I like building things end to end, from the <em>database</em> to the part you actually tap.</p>
+        <div class="skills">
+          <h4>// languages</h4>
+          <div class="tags"><span>Python</span><span>JavaScript</span><span>TypeScript</span><span>Java</span><span>C++</span><span>SQL</span></div>
+          <h4>// frameworks &amp; tools</h4>
+          <div class="tags"><span>React</span><span>Next.js</span><span>Flask</span><span>Supabase</span><span>PostgreSQL</span><span>MySQL</span><span>RESTful APIs</span><span>Git</span><span>Cursor</span><span>Claude Code</span><span>VS Code</span><span>Vercel</span></div>
+        </div>
+      </div>
+      <div class="term reveal">
+        <div class="term-bar"><span class="dots"><i></i><i></i><i></i></span>about.md</div>
+        <div class="term-body">
+          <div class="row"><span class="k">studying</span><span>BS CS, NYU Tandon, Dec 2027</span></div>
+          <div class="row"><span class="k">coursework</span><span>Data Structures, Algorithms, Databases, Operating Systems, Networking, OOP, Discrete Math</span></div>
+          <div class="row"><span class="k">working</span><span>SWE at NYU Campus Planning</span></div>
+          <div class="row"><span class="k">fellow</span><span>Break Through Tech AI</span></div>
+          <div class="row"><span class="k">also</span><span>NYU Tandon Mentor, SoFi case competition winner</span></div>
+          <div class="row"><span class="k">from</span><span>Queens, NYC</span></div>
+          <div class="row"><span class="k">offline</span><span>lifting at the gym</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact" aria-label="Contact">
+    <div class="contact-box reveal">
+      <p class="cmd"><span class="prompt">$</span> echo $NEXT_ROLE</p>
+      <h2>Summer 2027<br><em>SWE internships.</em></h2>
+      <a class="email" href="mailto:ah7203@nyu.edu">ah7203@nyu.edu</a>
+      <div class="cta">
+        <a class="btn primary" href="public/AnikaHakim_Resume.pdf" target="_blank" rel="noopener"><span class="dollar">$</span> open anika's resume</a>
+        <a class="btn" href="https://github.com/Anikahakim" target="_blank" rel="noopener"><span class="dollar">$</span> github</a>
+        <a class="btn" href="https://www.linkedin.com/in/anika-hakim/" target="_blank" rel="noopener"><span class="dollar">$</span> linkedin</a>
+      </div>
+    </div>
+    <footer>
+      <span>© 2026 Anika Hakim</span>
+      <span>built in NYC</span>
+    </footer>
+  </section>
+</main>
+
+<script>
+/* ---------- Intro: type "whoami", then show the name ---------- */
+(function () {
+  var TIMING = { startDelay: 300, perChar: 90, afterType: 350, hold: 1200 };  // tweak here
+  var CMD = 'whoami';
+  var overlay = document.querySelector('[data-intro]');
+  var typeEl = document.querySelector('[data-intro-type]');
+  var nameEl = document.querySelector('[data-intro-name]');
+  var body = document.body;
+  var KEY = 'ah-intro-played';
+  function played() { try { return !!sessionStorage.getItem(KEY); } catch (e) { return false; } }
+  function mark() { try { sessionStorage.setItem(KEY, '1'); } catch (e) {} }
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce || played() || !overlay || !typeEl || !nameEl) return;
+
+  var timers = [], done = false;
+  function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
+  function finish() {
+    if (done) return; done = true;
+    timers.forEach(clearTimeout);
+    mark();
+    overlay.classList.add('out');
+    body.classList.remove('intro-playing');
+    setTimeout(function () { overlay.style.display = 'none'; }, 600);
+    window.removeEventListener('keydown', finish);
+  }
+  overlay.removeAttribute('hidden');
+  body.classList.add('intro-playing');
+  overlay.addEventListener('click', finish);
+  window.addEventListener('keydown', finish);
+
+  var t = TIMING.startDelay;
+  for (var i = 1; i <= CMD.length; i++) {
+    (function (n) { later(function () { typeEl.textContent = CMD.slice(0, n); }, t); })(i);
+    t += TIMING.perChar;
+  }
+  t += TIMING.afterType;
+  later(function () { nameEl.classList.add('show'); }, t);
+  later(finish, t + TIMING.hold);
+})();
+
+/* ---------- Scroll reveal ---------- */
+(function () {
+  var els = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('in'); }); return; }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+  }, { rootMargin: '0px 0px -8% 0px' });
+  els.forEach(function (e) { io.observe(e); });
+})();
+</script>
 </body>
 </html>
